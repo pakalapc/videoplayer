@@ -2,12 +2,12 @@ import dataAccess.FetchData;
 import dataAccess.QueryLogic;
 import model.Channel;
 import model.PlayList;
-import model.Video;
+import model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.Set;
 import java.util.Iterator;
 
@@ -33,11 +33,13 @@ public class Controller {
             Channel c = (Channel) m.getKey();
             System.out.print(c.getChannelName() +" : ");
             ArrayList<Video> list = (ArrayList<Video>)m.getValue();
-            System.out.print("{");
+            StringBuilder s = new StringBuilder();
+            s.append("{");
             for(Video v : list )
-                System.out.print(v.getVideoName() + " , ");
-            System.out.print("}");
-            System.out.println();
+                s.append(v.getVideoName() + ",");
+            s.deleteCharAt(s.length()-1);
+            s.append("}");
+            System.out.println(s.toString());
         }
     }
 
@@ -49,25 +51,27 @@ public class Controller {
      */
     void showResult5(QueryLogic qL) {
         HashMap<Channel,Integer> result5 = qL.sql5();
-
+        Channel maxChannel = null , minChannel = null;
         if(result5.size() != 2)
             System.out.println("Query 5 could not be executed");
         else{
             int max = Integer.MIN_VALUE,min = Integer.MAX_VALUE;
-            Channel maxChannel = null , minChannel = null;
+            int count = 0;
+            int index=1;
+
             for(Map.Entry m:result5.entrySet()){
                 Channel c = (Channel) m.getKey();
-                int count = (int) m.getValue();
-
+                count = (int) m.getValue();
                 if(count > max) {
                     max = count;
                     maxChannel = c;
                 }
-                else if(count < min) {
+                if(count < min) {
                     min = count;
                     minChannel = c;
                 }
             }
+            System.out.println();
             System.out.println("Channel with minimum video Count is " + minChannel.getChannelName() +
                     " with video counts " + min);
             System.out.println("Channel with maximum video Count is " + maxChannel.getChannelName() +
@@ -91,11 +95,14 @@ public class Controller {
             System.out.print(p.getPlayListName() + " : ");
 
             ArrayList<Video> list = (ArrayList<Video>)m.getValue();
-            System.out.print("{");
+            StringBuilder s = new StringBuilder();
+            s.append("{");
             for(Video v : list )
-                System.out.print(v.getVideoName() + " , ");
-            System.out.print("}");
-            System.out.println();
+                s.append(v.getVideoName() + ",");
+            s.deleteCharAt(s.length()-1);
+            s.append("}");
+            System.out.println(s.toString());
+
         }
     }
 
