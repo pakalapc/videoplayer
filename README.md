@@ -10,7 +10,7 @@ help getting basic functionalities of a video player like:
 
 ## Requiremnts
 
-This projects needs the following jars to run:
+This projects needs the following jars to be added in its path before it runs:
 
 * jdom.jar
 * mysql-connector-java.jar
