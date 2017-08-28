@@ -15,6 +15,7 @@ This projects needs the following jars to run:
 * jdom.jar
 * mysql-connector-java.jar
 * MySQL Server
+* junit.jar
 
 ## Assumptions
 
